@@ -56,7 +56,9 @@ function response(res, message, code, body){
 		'Access-Control-Allow-Origin': '*'
 	});
 
- 	res.write(body);
+	if(body){
+ 		res.write(body);
+	}
 	res.end();
 }
 
