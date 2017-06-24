@@ -52,24 +52,25 @@
                    <input type="text" class="form-control add-todo" placeholder="Add SSO" id ="sso" style="margin-left:-15px;" >
                </div>
           </div>
+
           <div class="row col-lg-12" style="margin-top: 20px">
                <div class="col-xs-10">
-                   <input type="text" class="form-control add-todo" placeholder="Add Project ID" id ="project" style="margin-left:-15px;" >
+                  <select class="form-control add-todo"  style="margin-left:-15px;"  id="project"> </select>
                </div>
           </div>
-          <br >
+
           <div class="row col-lg-12" style="margin-top: 20px">
                <div class="col-xs-10">
-                   <input type="text" class="form-control add-todo" placeholder="Add Work description" id ="desc" style="margin-left:-15px;" >
+                   <input type="text" class="form-control add-todo" placeholder="Add Work Description" id ="desc" style="margin-left:-15px;" >
                </div>
           </div>
-          <br/>
+
           <div class="row col-lg-12" style="margin-top: 20px">
                <div class="col-xs-10">
                    <input type="text" class="form-control add-todo" placeholder="Add Hours" id ="hour" style="margin-left:-15px;" >
                </div>
           </div>
-          <br/>
+
           <div class="row col-lg-12" style="margin-top: 20px; margin-left: -30px">
                <div id="sandbox-container" class="col-xs-10">
                    <div class="input-group date">
@@ -118,7 +119,6 @@
      });
 
     $.getJSON( "host.json", function( data ) {
-        var items = [];
         $.each( data, function( key, val ) {
           if(key == "host"){
             host = val;
@@ -129,6 +129,17 @@
         writeLink = host+"/write";
     });
 
+
+
+    $('<option />', {text: ""}).appendTo($("#project"))
+    $.getJSON( "project.json", function( data ) {
+    
+      var rows = data.data;
+      for(var row in rows) {
+        $('<option />', {text: rows[row]}).appendTo($("#project"));
+      }
+    });
+
     $("#add").click(function(){
        if(checkNull()){           
            $.ajax({
@@ -136,7 +147,7 @@
               url: writeLink,
               data: JSON.stringify({
                 "sso":  $("#sso").val(),
-                "project": $('#project').val(),
+                "project": $('#project').val().split(" - ")[0],
                 "desc": $('#desc').val(),
                 "hour": $('#hour').val(),
                 "date": $("#date").val()
