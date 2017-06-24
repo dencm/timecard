@@ -25,56 +25,40 @@ http.createServer(function(req, res){
 			// save file
 			fs.writeFile("items.json", JSON.stringify(content), function (err) {
 			  if (err) {
-				 console.log("save json fail:"+err);
-
-				 res.writeHead(500, {
-				 	'Content-Type': 'text/html',
-					'Access-Control-Allow-Origin': '*'
-				})
-			
-			 	res.write("save json fail:"+err);
+			  	 response(res, "save json fail:"+err, 500, "save json fail:"+err);
 			  } else {
-			  	 console.log(JSON.stringify(post) +" save to json");
-				 res.writeHead(200, {
-					 'Content-Type': 'text/html',
-					 'Access-Control-Allow-Origin': '*'
-					 });	
-				
-				 res.write("success");
+			  	 response(res, JSON.stringify(post) +" save to json", 200, "success");
 			  }
-			  res.end();
 			});
 	    });
    } else if(pathname == "/read"){
 	   fs.readFile("items.json", function (err, data) {
 		  if (err) {
-			 console.log("read json fail:"+err);
-
-			 res.writeHead(500, {
-			 	'Content-Type': 'text/html',
-				'Access-Control-Allow-Origin': '*'
-			 });
-			
-			 res.write("read json fail:"+err);
+			 response(res, "read json fail:"+err, 500, "read json fail:"+err);
 		  }else{
-			 res.writeHead(200, {
-				 'Content-Type': 'text/html',
-				 'Access-Control-Allow-Origin': '*'
-				 });
-			
-			 res.write(JSON.stringify(JSON.parse(data)));
+			 response(res, null, 200, JSON.stringify(JSON.parse(data)));
 		  }
-		  
-		  res.end();
 	   })
    } else{
-	   	res.writeHead(400, {
-		 	'Content-Type': 'text/html',
-			'Access-Control-Allow-Origin': '*'
-		 });
-		res.end();
+		response(res, null, 400, null);
    }
 }).listen(process.env.PORT || 3000);
+
+
+function response(res, message, code, body){
+
+	if(message){
+	 	console.log(message);
+	}
+
+	 res.writeHead(code, {
+	 	'Content-Type': 'text/html',
+		'Access-Control-Allow-Origin': '*'
+	});
+
+ 	res.write(body);
+	res.end();
+}
 
 
 console.log('Server running');
