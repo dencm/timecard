@@ -6,6 +6,8 @@
     "start": "node http.js"
   },
   "dependencies": {
-    "body-parser": "~1.13.2"
+    "body-parser": "~1.13.2",
+    "node-schedule": "^1.2.1",
+    "nodemailer": "^1.2.1"
   }
 }
