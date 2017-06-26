@@ -2,8 +2,8 @@
 "service": "Hotmail",
 "port": 587,
 "user": "timecardbackup@hotmail.com",
-"pass": "XXXXX",
+"pass": "pa55word",
 "from": "timecardbackup@hotmail.com",
 "to": "zhubin_001@hotmail.com",
-"schedule": "{\"hour\": [8,20]}"
+"schedule": "{\"hour\": [5,17], \"minute\": 10}"
 }
