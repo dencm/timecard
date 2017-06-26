@@ -5,5 +5,5 @@
 "pass": "pa55word",
 "from": "timecardbackup@hotmail.com",
 "to": "zhubin_001@hotmail.com",
-"schedule": "{\"hour\": [5,17], \"minute\": 10}"
+"schedule": "{\"hour\": [1,13], \"minute\": 25}"
 }
